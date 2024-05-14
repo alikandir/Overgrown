@@ -9,6 +9,7 @@ public class Plant
     private float growTime;
     private float overgrownTime;
     private GameObject product;
+
     private float initialTime;
     bool isWatered;
 
@@ -41,7 +42,7 @@ public class Plant
         }
     }
 
-    public GameObject Harvest() 
+    public GameObject getProduct() 
     { 
         if (ReadyToHarvest)
             return product;
@@ -54,7 +55,6 @@ public class Plant
         initialTime = Time.time;
         isWatered = true;
     }
-
 
 
 
