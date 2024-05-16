@@ -3,27 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Plant 
+public abstract class Plant : MonoBehaviour
 {
-    private string plantName;
-    private float growTime;
-    private float overgrownTime;
-    private GameObject product;
+    
+    protected string plantName;
+    protected float growTime;
+    protected float overgrownTime;
+    protected GameObject product;
 
     private float initialTime;
     bool isWatered;
 
-    public Plant(string name, float gTime, float ogTime, GameObject pr)
-    {
-        plantName = name;
-        growTime = gTime;
-        overgrownTime = ogTime;
-        product = pr;
-        isWatered = false;
-    }
+    
 
     
-    public bool ReadyToHarvest
+    public virtual bool ReadyToHarvest
     {
         get
         {
@@ -37,7 +31,7 @@ public class Plant
     {
         get
         {   if (isWatered)
-                return Time.time - initialTime >= overgrownTime;
+                return Time.time - (initialTime + growTime) >= overgrownTime;
             else return false;
         }
     }
@@ -56,6 +50,7 @@ public class Plant
         isWatered = true;
     }
 
+    public abstract void OverGrownEffect();
 
 
 }
