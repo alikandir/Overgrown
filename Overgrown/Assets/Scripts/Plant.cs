@@ -17,28 +17,22 @@ public abstract class Plant : MonoBehaviour
     
 
     
-    public virtual bool ReadyToHarvest
+    public virtual bool ReadyToHarvest()
     {
-        get
-        {
             if (isWatered)
-                return Time.time-initialTime >= growTime;
+                return Time.time- initialTime >= growTime;
             return false;
-        }
     }
 
-    public bool IsOverGrown
-    {
-        get
-        {   if (isWatered)
+    public bool IsOverGrown()
+    {   if (isWatered)
                 return Time.time - (initialTime + growTime) >= overgrownTime;
             else return false;
-        }
     }
 
     public GameObject getProduct() 
     { 
-        if (ReadyToHarvest)
+        if (ReadyToHarvest())
             return product;
         else 
             return null;

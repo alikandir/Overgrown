@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class buttonscript : MonoBehaviour
 {
-    [SerializeField] Plant bitki;
+    [SerializeField] Plant[] bitki;
     public void watr()
     {
-        bitki.Water();
+        foreach (var item in bitki)
+        {
+            item.Water();
+        }
+        
     }
 }

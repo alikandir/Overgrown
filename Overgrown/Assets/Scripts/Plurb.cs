@@ -6,10 +6,17 @@ using UnityEngine;
 public class Plurb : Plant
 {
     string plantName = "P'lurp";
-    [SerializeField] float growTime = 2f;
-    [SerializeField]float overgrownTime = 3f;
-    [SerializeField] GameObject product;
+    [SerializeField] float growtime = 2f;
+    [SerializeField]float overgrowntime = 3f;
+    [SerializeField] GameObject prduct;
 
+    public Plurb()
+    {
+        plantName = "P'lurp";
+        growTime = growtime;
+        overgrownTime = overgrowntime;
+        product = prduct; // You may want to set this to a specific GameObject
+    }
     public override void OverGrownEffect()
     {
         Destroy(gameObject);
@@ -17,11 +24,11 @@ public class Plurb : Plant
 
     private void Update()
     {
-        if (ReadyToHarvest)
+        if (ReadyToHarvest())
         {
-            Debug.Log("çabuk harvest");
+            Debug.Log("çabuk harvet");
         }
-        if (IsOverGrown)
+        if (IsOverGrown())
         {
             OverGrownEffect();
         }
