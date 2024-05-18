@@ -6,6 +6,7 @@ TagManager:
   tags:
   - WateringCan
   - PlantPot
+  - plant
   layers:
   - Default
   - TransparentFX

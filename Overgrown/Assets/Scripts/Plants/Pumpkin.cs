@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Pumpkin : Plant
 {
-
-
     [SerializeField] float growtime = 1f;
     [SerializeField] float overgrowntime = 2f;
     [SerializeField] GameObject prduct;
     [SerializeField] float explosionRange = 3f;
+
+
     public Pumpkin()
     {
         plantName = "Rotten Pumpkin";
