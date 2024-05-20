@@ -6,7 +6,7 @@ using UnityEngine;
 public class Plurb : Plant
 {
     [SerializeField] float growtime = 2f;
-    [SerializeField]float overgrowntime = 3f;
+    [SerializeField]float overgrowntime = 100f;
     [SerializeField] GameObject prduct;
 
     public Plurb()
@@ -25,7 +25,7 @@ public class Plurb : Plant
     {
         if (ReadyToHarvest())
         {
-            Debug.Log("çabuk harvet");
+            //Debug.Log("çabuk harvet");
         }
         if (IsOverGrown())
         {
