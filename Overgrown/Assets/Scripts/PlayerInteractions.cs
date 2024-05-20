@@ -68,15 +68,19 @@ public class PlayerController : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(transform.position, interactionRange);
         foreach (Collider collider in colliders)
         {
-            if (collider.CompareTag("PlantPot"))
-            {
+            if (collider.CompareTag("PlantPot")) //tag  deðiþecek
+            {/*
                 PlantGrowth plant = collider.GetComponentInChildren<PlantGrowth>();
                 if (plant != null)
                 {
                     plant.WaterPlant();
                     Debug.Log("Plant has been watered.");
                 }
-                break;
+                break;*/
+
+                Plant plant = collider.GetComponent<Plant>();
+                plant.Water();
+                Debug.Log("Plant has been watered.");
             }
         }
     }
