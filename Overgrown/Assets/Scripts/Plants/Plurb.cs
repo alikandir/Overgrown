@@ -6,7 +6,7 @@ using UnityEngine;
 public class Plurb : Plant
 {
     [SerializeField] float growtime = 2f;
-    [SerializeField]float overgrowntime = 100f;
+    [SerializeField]float overgrowntime = 20f;
     [SerializeField] GameObject prduct;
 
     public Plurb()

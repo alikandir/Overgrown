@@ -641,7 +641,8 @@ MonoBehaviour:
   handTransform: {fileID: 232942150}
   interactionRange: 2
   pickUpKey: 101
-  waterKey: 102
+  interactionKey: 102
+  harvestKey: 113
 --- !u!1 &564157979
 GameObject:
   m_ObjectHideFlags: 0
@@ -991,33 +992,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1919064549}
   m_PrefabAsset: {fileID: 0}
---- !u!54 &838093750
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 838093749}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!136 &838093751
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1291,7 +1265,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1287459281}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 16db5f7b955930644a064b6705cf5370, type: 3}
   m_Name: 
@@ -1321,6 +1295,21 @@ CapsuleCollider:
   m_Height: 0.13675743
   m_Direction: 1
   m_Center: {x: 0, y: 0.09, z: 0.0000000074505815}
+--- !u!114 &1287459287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1287459281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 341327100f729e54695f987cd0a53974, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  growtime: 2
+  overgrowntime: 100
+  prduct: {fileID: 0}
 --- !u!1001 &1702135618
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1402,7 +1391,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: fa237611ac96adc44bd0b786672c6314,
         type: 3}
       propertyPath: m_TagString
-      value: PlantPot
+      value: plant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1416,6 +1405,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1287459282}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fa237611ac96adc44bd0b786672c6314,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1287459287}
   m_SourcePrefab: {fileID: 100100000, guid: fa237611ac96adc44bd0b786672c6314, type: 3}
 --- !u!1 &1915530637
 GameObject:
@@ -1620,10 +1613,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 838093751}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a5d652d8a3386dd4391eba444f75a2f0,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 838093750}
   m_SourcePrefab: {fileID: 100100000, guid: a5d652d8a3386dd4391eba444f75a2f0, type: 3}
 --- !u!1 &1944081100
 GameObject:
