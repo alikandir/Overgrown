@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public Transform handTransform; // Where the watering can will be held
+    public Transform handTransform; // Where the watering can or plant will be held
     public float interactionRange = 2f; // Range within which the player can interact
-    public KeyCode pickUpKey = KeyCode.E; // Key to pick up the watering can
-    public KeyCode interactionKey = KeyCode.F; // Key to water the plant
-    public KeyCode harvestKey = KeyCode.Q;
+    public KeyCode pickUpKey = KeyCode.E; // Key to pick up the watering can or plant
+    public KeyCode interactionKey = KeyCode.F; // Key to interact with the plant
+    public KeyCode harvestKey = KeyCode.Q; // Key to harvest the plant
+    public KeyCode placePlantKey = KeyCode.R; // Key to place the plant on the table
+    public KeyCode sellKey = KeyCode.G; // Key to sell the plant to a customer
 
-    private GameObject onHand;
+    public TableInventory tableInventory; // Reference to the table inventory
+
+    public GameObject onHand; // Make this public so it can be accessed from the Customer script
     private bool isHoldingCan = false;
 
     void Update()
@@ -19,7 +23,7 @@ public class PlayerController : MonoBehaviour
         {
             if (isHoldingCan)
             {
-                DropCan();
+                DropItem();
             }
             else
             {
@@ -32,9 +36,27 @@ public class PlayerController : MonoBehaviour
             TryWaterPlant();
         }
 
-        if(Input.GetKeyDown(harvestKey))
+        if (Input.GetKeyDown(harvestKey))
         {
             TryHarvest();
+        }
+
+        if (Input.GetKeyDown(placePlantKey))
+        {
+            if (onHand != null && onHand.CompareTag("PlantOnHand"))
+            {
+                TryPlacePlantOnTable();
+            }
+        }
+
+        if (Input.GetKeyDown(interactionKey))
+        {
+            TryTakePlantFromTable();
+        }
+
+        if (Input.GetKeyDown(sellKey))
+        {
+            TrySellPlantToCustomer();
         }
     }
 
@@ -45,27 +67,33 @@ public class PlayerController : MonoBehaviour
         {
             if (collider.CompareTag("WateringCan"))
             {
-                PickUpCan(collider.gameObject);
+                PickUpItem(collider.gameObject);
                 break;
             }
         }
     }
 
-    void PickUpCan(GameObject can)
-    {   if(onHand) 
-            DropCan();
-        onHand = can;
+    void PickUpItem(GameObject item)
+    {
+        if (onHand)
+        {
+            DropItem();
+        }
+        onHand = item;
         onHand.transform.SetParent(handTransform);
         onHand.transform.localPosition = Vector3.zero;
         onHand.transform.localRotation = Quaternion.identity;
-        isHoldingCan = true;
+        isHoldingCan = item.CompareTag("WateringCan");
     }
 
-    void DropCan()
+    public void DropItem() // Ensure this is public
     {
-        onHand.transform.SetParent(null);
-        onHand = null;
-        isHoldingCan = false;
+        if (onHand != null)
+        {
+            onHand.transform.SetParent(null);
+            onHand = null;
+            isHoldingCan = false;
+        }
     }
 
     void TryWaterPlant()
@@ -73,22 +101,18 @@ public class PlayerController : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(transform.position, interactionRange);
         foreach (Collider collider in colliders)
         {
-            if (collider.CompareTag("plant")) 
-            {/*
-                PlantGrowth plant = collider.GetComponentInChildren<PlantGrowth>();
+            if (collider.CompareTag("plant"))
+            {
+                Plant plant = collider.GetComponent<Plant>();
                 if (plant != null)
                 {
-                    plant.WaterPlant();
+                    plant.Water();
                     Debug.Log("Plant has been watered.");
                 }
-                break;*/
-
-                Plant plant = collider.GetComponent<Plant>();
-                plant.Water();
-                Debug.Log("Plant has been watered.");
             }
         }
     }
+
     void TryHarvest()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, interactionRange);
@@ -96,17 +120,67 @@ public class PlayerController : MonoBehaviour
         {
             if (collider.CompareTag("plant"))
             {
-                if (collider.GetComponent<Plant>().ReadyToHarvest())
+                Plant plant = collider.GetComponent<Plant>();
+                if (plant != null && plant.ReadyToHarvest())
                 {
-                    Debug.Log("abi ettik harvest");
-                PickUpCan(collider.gameObject);
-                break;
+                    Debug.Log("Plant harvested");
+                    PickUpItem(collider.gameObject);
+                    collider.tag = "PlantOnHand";
+                    break;
                 }
+            }
+        }
+    }
 
+    void TryPlacePlantOnTable()
+    {
+        if (Vector3.Distance(transform.position, tableInventory.transform.position) <= interactionRange)
+        {
+            Debug.Log("Placing plant on table.");
+            tableInventory.AddPlant(onHand);
+            onHand = null;
+        }
+        else
+        {
+            Debug.Log("Too far from table to place plant.");
+        }
+    }
+
+    void TryTakePlantFromTable()
+    {
+        if (onHand == null && Vector3.Distance(transform.position, tableInventory.transform.position) <= interactionRange)
+        {
+            Debug.Log("Taking plant from table.");
+            onHand = tableInventory.TakePlant();
+            if (onHand != null)
+            {
+                onHand.transform.SetParent(handTransform);
+                onHand.transform.localPosition = Vector3.zero;
+                onHand.transform.localRotation = Quaternion.identity;
+                onHand.tag = "PlantOnHand";
+            }
+        }
+        else
+        {
+            Debug.Log("Too far from table to take plant.");
+        }
+    }
+
+    void TrySellPlantToCustomer()
+    {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, interactionRange);
+        foreach (Collider collider in colliders)
+        {
+            if (collider.CompareTag("Customer"))
+            {
+                Customer customer = collider.GetComponent<Customer>();
+                if (customer != null && onHand != null && onHand.CompareTag("PlantOnHand"))
+                {
+                    customer.BuyPlant(onHand);
+                    DropItem();
+                }
+                break;
             }
         }
     }
 }
-
-
-

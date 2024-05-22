@@ -7,6 +7,9 @@ TagManager:
   - WateringCan
   - PlantPot
   - plant
+  - PlantOnHand
+  - PlantOnTable
+  - Customer
   layers:
   - Default
   - TransparentFX
