@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     public KeyCode interactionKey = KeyCode.F; // Key to interact with the plant
     public KeyCode harvestKey = KeyCode.Q; // Key to harvest the plant
     public KeyCode placePlantKey = KeyCode.R; // Key to place the plant on the table
-    public KeyCode sellKey = KeyCode.G; // Key to sell the plant to a customer
+    public KeyCode sellKey = KeyCode.S; // Key to sell the plant to a customer
 
     public TableInventory tableInventory; // Reference to the table inventory
 
@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(placePlantKey))
         {
-            if (onHand != null && onHand.CompareTag("PlantOnHand"))
+            if (onHand != null && onHand.GetComponent<Plant>().isHarvested)
             {
                 TryPlacePlantOnTable();
             }
@@ -123,9 +123,9 @@ public class PlayerController : MonoBehaviour
                 Plant plant = collider.GetComponent<Plant>();
                 if (plant != null && plant.ReadyToHarvest())
                 {
+                    plant.Harvest();
                     Debug.Log("Plant harvested");
                     PickUpItem(collider.gameObject);
-                    collider.tag = "PlantOnHand";
                     break;
                 }
             }
@@ -157,7 +157,6 @@ public class PlayerController : MonoBehaviour
                 onHand.transform.SetParent(handTransform);
                 onHand.transform.localPosition = Vector3.zero;
                 onHand.transform.localRotation = Quaternion.identity;
-                onHand.tag = "PlantOnHand";
             }
         }
         else
@@ -174,7 +173,7 @@ public class PlayerController : MonoBehaviour
             if (collider.CompareTag("Customer"))
             {
                 Customer customer = collider.GetComponent<Customer>();
-                if (customer != null && onHand != null && onHand.CompareTag("PlantOnHand"))
+                if (customer != null && onHand != null && onHand.GetComponent<Plant>().isHarvested)
                 {
                     customer.BuyPlant(onHand);
                     DropItem();

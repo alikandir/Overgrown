@@ -5,36 +5,35 @@ using UnityEngine;
 [System.Serializable]
 public abstract class Plant : MonoBehaviour
 {
-    
     protected string plantName;
     protected float growTime;
     protected float overgrownTime;
     protected GameObject product;
 
     private float initialTime;
-    bool isWatered;
+    private bool isWatered;
+    public bool isHarvested { get; private set; } // Flag to check if the plant is harvested
 
-    
-
-    
     public virtual bool ReadyToHarvest()
     {
-            if (isWatered)
-                return Time.time- initialTime >= growTime;
-            return false;
+        if (isWatered)
+            return Time.time - initialTime >= growTime;
+        return false;
     }
 
     public bool IsOverGrown()
-    {   if (isWatered)
-                return Time.time - (initialTime + growTime) >= overgrownTime;
-            else return false;
+    {
+        if (isWatered)
+            return Time.time - (initialTime + growTime) >= overgrownTime;
+        else
+            return false;
     }
 
-    public GameObject getProduct() 
-    { 
+    public GameObject GetProduct()
+    {
         if (ReadyToHarvest())
             return product;
-        else 
+        else
             return null;
     }
 
@@ -44,7 +43,10 @@ public abstract class Plant : MonoBehaviour
         isWatered = true;
     }
 
+    public void Harvest()
+    {
+        isHarvested = true;
+    }
+
     public abstract void OverGrownEffect();
-
-
 }
