@@ -6,7 +6,6 @@ public class Pumpkin : Plant
 {
     [SerializeField] float growtime = 1f;
     [SerializeField] float overgrowntime = 2f;
-    [SerializeField] GameObject prduct;
     [SerializeField] float explosionRange = 3f;
 
 
@@ -15,7 +14,7 @@ public class Pumpkin : Plant
         plantName = "Rotten Pumpkin";
         growTime = growtime;
         overgrownTime = overgrowntime;
-        product = prduct;
+
     }
 
     public override void OverGrownEffect()
@@ -32,7 +31,7 @@ public class Pumpkin : Plant
     {
         if (ReadyToHarvest())
         {
-            Debug.Log("çabuk harvet kabak");
+            Debug.Log("ï¿½abuk harvet kabak");
         }
         if (IsOverGrown())
         {

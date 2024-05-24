@@ -7,14 +7,13 @@ public class Plurb : Plant
 {
     [SerializeField] float growtime = 2f;
     [SerializeField]float overgrowntime = 20f;
-    [SerializeField] GameObject prduct;
+    
 
     public Plurb()
     {
         plantName = "P'lurp";
         growTime = growtime;
         overgrownTime = overgrowntime;
-        product = prduct;
     }
     public override void OverGrownEffect()
     {
@@ -25,7 +24,7 @@ public class Plurb : Plant
     {
         if (ReadyToHarvest())
         {
-            //Debug.Log("çabuk harvet");
+            //Debug.Log("ï¿½abuk harvet");
         }
         if (IsOverGrown())
         {

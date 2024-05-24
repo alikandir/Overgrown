@@ -3,24 +3,26 @@ using UnityEngine;
 
 public class TableInventory : MonoBehaviour
 {
-    public List<GameObject> plantsOnTable = new List<GameObject>();
-
+    public GameObject OnTable;
+    private bool isEmpty = true; //d
     public void AddPlant(GameObject plant)
-    {
-        plantsOnTable.Add(plant);
+    {   if (isEmpty)
+        {
+        OnTable = plant;
         plant.transform.SetParent(transform);
-        plant.transform.localPosition = new Vector3(0, 0.5f, plantsOnTable.Count * 0.5f); // Adjust positions as needed
-        plant.tag = "PlantOnTable"; // Change tag to indicate it's on the table
+        plant.transform.localPosition = new Vector3(0, 0.5f, 0); // Adjust positions as needed
+        isEmpty = false;
+        }
+        
     }
 
     public GameObject TakePlant()
     {
-        if (plantsOnTable.Count > 0)
+        if (OnTable)
         {
-            GameObject plant = plantsOnTable[plantsOnTable.Count - 1];
-            plantsOnTable.RemoveAt(plantsOnTable.Count - 1);
+            GameObject plant = OnTable;
             plant.transform.SetParent(null);
-            plant.tag = "PlantOnHand"; // Change tag back to indicate it's being held
+            isEmpty = true;
             return plant;
         }
         return null;

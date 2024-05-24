@@ -8,7 +8,7 @@ public abstract class Plant : MonoBehaviour
     protected string plantName;
     protected float growTime;
     protected float overgrownTime;
-    protected GameObject product;
+    protected float plantPrice;
 
     private float initialTime;
     private bool isWatered;
@@ -29,14 +29,11 @@ public abstract class Plant : MonoBehaviour
             return false;
     }
 
-    public GameObject GetProduct()
-    {
-        if (ReadyToHarvest())
-            return product;
-        else
-            return null;
-    }
 
+    public float GetPlantPrice()
+    {
+        return plantPrice;
+    }
     public void Water()
     {
         initialTime = Time.time;
