@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(placePlantKey))
         {
-            if (onHand != null && onHand.GetComponent<Plant>().isHarvested)
+            if (onHand != null )
             {
                 TryPlacePlantOnTable();
             }
