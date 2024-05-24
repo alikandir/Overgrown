@@ -1,68 +1,62 @@
 using System.Collections.Generic;
 using UnityEngine;
-
 public class CustomerManager : MonoBehaviour
 {
-    public Transform[] sellingPositions; // Assign 3 transforms in the inspector for the front positions
+    public SellPosition[] sellingPositions; // Assign 3 transforms in the inspector for the front positions
+    public SellPosition[] waitPositions;
     public Transform queueStartPosition; // Assign the starting position of the queue
     public GameObject customerPrefab; // Assign the customer prefab in the inspector
-
-    private Queue<GameObject> customerQueue = new Queue<GameObject>();
+    private Customer[] customers;
+    
+    
 
     void Start()
     {
         // Spawn initial customers (for example, 5 customers)
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i <6; i++)
         {
             SpawnCustomer();
         }
     }
 
-    void SpawnCustomer()
+    void  SpawnCustomer()
     {
         // Instantiate a new customer and add to the queue
         GameObject newCustomer = Instantiate(customerPrefab, queueStartPosition.position, Quaternion.identity);
-        customerQueue.Enqueue(newCustomer);
-
-        // Update queue positions
-        UpdateCustomerPositions();
+        Customer customer=newCustomer.GetComponent<Customer>();
+        if (sellingPositions[0].isOccupied==false){
+            customer.targetPosition = sellingPositions[0].transform.position;
+            sellingPositions[0].isOccupied = true;
+        }
+        else if (sellingPositions[1].isOccupied==false){
+            customer.targetPosition = sellingPositions[1].transform.position;
+            sellingPositions[1].isOccupied = true;
+        }
+        else if (sellingPositions[2].isOccupied==false){
+            customer.targetPosition = sellingPositions[2].transform.position;
+            sellingPositions[2].isOccupied = true;
+        }
+        else if (waitPositions[0].isOccupied==false){
+            customer.targetPosition = waitPositions[0].transform.position;
+            waitPositions[0].isOccupied=true;
+        }
+        else if (waitPositions[1].isOccupied==false){
+            customer.targetPosition = waitPositions[1].transform.position;
+            waitPositions[1].isOccupied=true;
+        }
+        else if (waitPositions[2].isOccupied==false){
+            customer.targetPosition = waitPositions[2].transform.position;
+            waitPositions[2].isOccupied=true;
+        }
     }
 
     void UpdateCustomerPositions()
     {
-        int index = 0;
-        foreach (GameObject customer in customerQueue)
-        {
-            Customer customerScript = customer.GetComponent<Customer>();
-            if (index < sellingPositions.Length)
-            {
-                customerScript.targetPosition = sellingPositions[index].position;
-                if (index == 0) // Display order for the first customer in line
-                {
-                    //customerScript.DisplayOrder();
-                    
-                }
-            }
-            else
-            {
-                // Position customers in the queue behind the selling positions
-                customerScript.targetPosition = queueStartPosition.position + new Vector3(0, 0, -2 * (index - sellingPositions.Length + 1));
-            }
-            index++;
-        }
+       
     }
 
     public void CompleteOrder()
     {
-        if (customerQueue.Count > 0)
-        {
-            // Remove the first customer in the queue
-            GameObject completedCustomer = customerQueue.Dequeue();
-            Customer customerScript = completedCustomer.GetComponent<Customer>();
-            //customerScript.CompleteOrder();
-
-            // Update the positions of the remaining customers
-            UpdateCustomerPositions();
-        }
+        return;
     }
 }

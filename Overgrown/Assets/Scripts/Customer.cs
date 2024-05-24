@@ -8,7 +8,7 @@ public class Customer : MonoBehaviour
 
     private bool isOrderCompleted = false;
     private CurrencyManager currencyManager;
-    private 
+    
 
     void Update()
     {
