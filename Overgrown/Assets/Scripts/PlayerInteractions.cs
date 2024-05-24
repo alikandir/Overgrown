@@ -175,7 +175,7 @@ public class PlayerController : MonoBehaviour
                 Customer customer = collider.GetComponent<Customer>();
                 if (customer != null && onHand != null && onHand.GetComponent<Plant>().isHarvested)
                 {
-                    customer.BuyPlant(onHand);
+                    //customer.BuyPlant(onHand);
                     DropItem();
                 }
                 break;

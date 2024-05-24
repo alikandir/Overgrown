@@ -2,33 +2,46 @@ using UnityEngine;
 
 public class Customer : MonoBehaviour
 {
-    public CurrencyManager currencyManager;
-    public float interactionRange = 2f;
-    public int plantPrice = 10; // Price for each plant
+    public GameObject orderBubble; // Assign in the inspector, this will be the order bubble prefab
+    public Vector3 targetPosition; // The position where the customer should move
+    public float speed = 2f; // Movement speed
+
+    private bool isOrderCompleted = false;
+    private CurrencyManager currencyManager;
+    private 
 
     void Update()
     {
-        if (Vector3.Distance(transform.position, FindObjectOfType<PlayerController>().transform.position) <= interactionRange)
+        // Move towards the target position
+        if (transform.position != targetPosition)
         {
-            TryBuyPlantFromPlayer();
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
         }
     }
 
-    void TryBuyPlantFromPlayer()
+    public void DisplayOrder()
     {
-        PlayerController player = FindObjectOfType<PlayerController>();
-        if (player.onHand != null && player.onHand.CompareTag("PlantOnHand"))
-        {
-            BuyPlant(player.onHand);
-            player.DropItem();
-        }
+        // Instantiate the order bubble above the customer
+        GameObject bubble = Instantiate(orderBubble, transform.position + Vector3.up * 2, Quaternion.identity);
+        bubble.transform.SetParent(this.transform); // Attach the bubble to the customer
     }
 
-    public void BuyPlant(GameObject plant)
+    public void CompleteOrder()
     {
-        currencyManager.EarnMoney(plantPrice);
+        isOrderCompleted = true;
+        // Implement any additional logic for order completion
+        // E.g., play animation, sound, etc.
+        Destroy(gameObject); // Remove customer from the scene
+    }
+    public void BuyPlant(Plant plant)
+    {
+        currencyManager.EarnMoney(plant.GetPlantPrice());
         Destroy(plant);
-        Debug.Log($"Sold a plant for ${plantPrice}!");
+        Debug.Log($"Sold a plant for ${plant.GetPlantPrice()}!");
     }
 }
+
+
+    
+
 

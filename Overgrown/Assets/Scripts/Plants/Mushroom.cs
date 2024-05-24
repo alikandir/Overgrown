@@ -7,13 +7,13 @@ public class Mushroom : Plant
 
     [SerializeField] float growtime = 8f;
     [SerializeField] float overgrowntime = 6f;
-    [SerializeField] GameObject prduct;
+   
     public Mushroom()
     {
         plantName = "Psychedelic Mushroom";
         growTime = growtime;
         overgrownTime = overgrowntime;
-        product = prduct;
+        
     }
 
     public override void OverGrownEffect()
@@ -25,7 +25,7 @@ public class Mushroom : Plant
     {
         if (ReadyToHarvest())
         {
-            Debug.Log("çabuk harvet mantar");
+            Debug.Log("ï¿½abuk harvet mantar");
         }
         if (IsOverGrown())
         {

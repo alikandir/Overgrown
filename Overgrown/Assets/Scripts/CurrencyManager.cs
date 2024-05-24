@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class CurrencyManager : MonoBehaviour
 {
-    public int money = 0;
+    public float money = 0;
     public TMP_Text moneyText;
 
     void Start()
@@ -12,7 +12,7 @@ public class CurrencyManager : MonoBehaviour
         UpdateMoneyUI();
     }
 
-    public void EarnMoney(int amount)
+    public void EarnMoney(float amount)
     {
         money += amount;
         UpdateMoneyUI();
