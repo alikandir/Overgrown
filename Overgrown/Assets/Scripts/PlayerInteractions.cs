@@ -10,8 +10,6 @@ public class PlayerController : MonoBehaviour
     public KeyCode interactionKey = KeyCode.F; // Key to interact with the plant
     public KeyCode harvestKey = KeyCode.Q; // Key to harvest the plant
     public KeyCode placePlantKey = KeyCode.R; // Key to place the plant on the table
-    public KeyCode sellKey = KeyCode.S; // Key to sell the plant to a customer
-
     public TableInventory tableInventory; // Reference to the table inventory
 
     public GameObject onHand; // Make this public so it can be accessed from the Customer script
@@ -54,10 +52,7 @@ public class PlayerController : MonoBehaviour
             TryTakePlantFromTable();
         }
 
-        if (Input.GetKeyDown(sellKey))
-        {
-            TrySellPlantToCustomer();
-        }
+        
     }
 
     void TryPickUpCan()
@@ -165,21 +160,5 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void TrySellPlantToCustomer()
-    {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, interactionRange);
-        foreach (Collider collider in colliders)
-        {
-            if (collider.CompareTag("Customer"))
-            {
-                Customer customer = collider.GetComponent<Customer>();
-                if (customer != null && onHand != null && onHand.GetComponent<Plant>().isHarvested)
-                {
-                    //customer.BuyPlant(onHand);
-                    DropItem();
-                }
-                break;
-            }
-        }
-    }
+    
 }
