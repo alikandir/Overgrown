@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(interactionKey))
+        if (Input.GetKeyDown(pickUpKey))
         {
             TryTakePlantFromTable();
         }
