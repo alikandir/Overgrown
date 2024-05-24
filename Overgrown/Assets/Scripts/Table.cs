@@ -4,7 +4,7 @@ using UnityEngine;
 public class TableInventory : MonoBehaviour
 {
     public GameObject OnTable;
-    private bool isEmpty = true;
+    private bool isEmpty = true; //d
     public void AddPlant(GameObject plant)
     {   if (isEmpty)
         {
