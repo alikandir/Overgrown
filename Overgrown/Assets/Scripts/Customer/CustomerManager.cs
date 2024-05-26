@@ -13,7 +13,7 @@ public class CustomerManager : MonoBehaviour
     void Start()
     {
         // Spawn initial customers (for example, 5 customers)
-        for (int i = 0; i <6; i++)
+        for (int i = 0; i <1; i++)
         {
             SpawnCustomer();
         }
