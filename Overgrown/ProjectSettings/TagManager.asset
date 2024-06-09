@@ -11,6 +11,8 @@ TagManager:
   - PlantOnTable
   - Customer
   - WaterSource
+  - Table
+  - Pot
   layers:
   - Default
   - TransparentFX

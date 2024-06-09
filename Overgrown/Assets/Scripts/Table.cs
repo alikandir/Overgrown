@@ -1,30 +1,68 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TableInventory : MonoBehaviour
-{
+{   
+    public GameObject wateringCanPrefab;
+    public GameObject SeedPrefab;
     public GameObject OnTable;
-    private bool isEmpty = true; //d
-    public void AddPlant(GameObject plant)
-    {   if (isEmpty)
+    public enum DeskType 
+    {
+        EmptyDesk,
+        SeedDesk,
+        WateringCanDesk,
+        SellingDesk
+
+    }
+    public DeskType deskType; 
+
+    private void Start() {
+        switch (deskType){
+            case DeskType.SeedDesk:
+            AddObject(Instantiate(SeedPrefab));
+            break;
+            case DeskType.WateringCanDesk:
+            AddObject(Instantiate(wateringCanPrefab));
+            break;
+            case DeskType.EmptyDesk:
+            break;
+
+        }
+    }
+    public void AddObject(GameObject plant)
+    {   if (OnTable==null)
         {
         OnTable = plant;
+   
+
         plant.transform.SetParent(transform);
         plant.transform.localPosition = new Vector3(0, 0.5f, 0); // Adjust positions as needed
-        isEmpty = false;
+        Debug.Log($"{gameObject.name} added {plant.name} to the table.");
+        }
+        else
+        {
+            Debug.LogWarning($"{gameObject.name} already has an item on the table: {OnTable.name}");
         }
         
     }
 
-    public GameObject TakePlant()
+    public GameObject TakeObject()
     {
         if (OnTable)
-        {
-            GameObject plant = OnTable;
-            plant.transform.SetParent(null);
-            isEmpty = true;
-            return plant;
+        {   
+            if (deskType==DeskType.SeedDesk){
+                return Instantiate(OnTable);
+            }
+            else{
+                return OnTable;
+            }
         }
-        return null;
+        else
+        {
+            Debug.LogWarning($"{gameObject.name} has no item to take.");
+            return null;
+        }
+        
     }
 }
