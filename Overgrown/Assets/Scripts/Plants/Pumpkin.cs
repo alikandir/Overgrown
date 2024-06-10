@@ -4,19 +4,24 @@ using UnityEngine;
 
 public class Pumpkin : Plant
 {
-    [SerializeField] float growtime = 1f;
-    [SerializeField] float overgrowntime = 2f;
+    [SerializeField] float growtime = 5f;
+    [SerializeField] float overgrowntime = 4f;
+    [SerializeField] float beforeovergrown = 12f;
     [SerializeField] float explosionRange = 3f;
-
+    [SerializeField] Mesh [] meshs;
+    MeshFilter filter;
 
     public Pumpkin()
     {
         plantName = "Rotten Pumpkin";
         growTime = growtime;
         overgrownTime = overgrowntime;
-
+        beforeOvergrown = beforeovergrown;
     }
-
+    private void Start()
+    {
+        filter = GetComponent<MeshFilter>();
+    }
     public override void OverGrownEffect()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRange);
@@ -29,13 +34,25 @@ public class Pumpkin : Plant
 
     private void Update()
     {
-        if (ReadyToHarvest())
-        {
-            Debug.Log("�abuk harvet kabak");
-        }
         if (IsOverGrown())
         {
+            Debug.Log("bura bozuk");
             OverGrownEffect();
+
+        }
+        else if (EarlyOvergrown())
+        {
+            filter.mesh = meshs[3];
+            Debug.Log("early");
+        }
+        else if (ReadyToHarvest())
+        {
+            filter.mesh = meshs[2];
+            Debug.Log("Harvest");
+        }
+        else if (IsWatered())
+        {
+            filter.mesh = meshs[1];
         }
     }
 }

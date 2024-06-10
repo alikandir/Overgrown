@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6212144930410408738}
   m_Layer: 0
   m_Name: PlantPumpkin
-  m_TagString: Untagged
+  m_TagString: plant
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,4 +98,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   growtime: 1
   overgrowntime: 2
+  beforeovergrown: 12
   explosionRange: 3
+  meshs:
+  - {fileID: -3877441827916750018, guid: 74f12dfad8999454f9737f78edcace75, type: 3}
+  - {fileID: 6036886512270421973, guid: c794a5dc8b39e4a4f9aa322de9c1851f, type: 3}
+  - {fileID: 1832164351317625044, guid: 79284691878dce149a0451b481be9c6d, type: 3}
+  - {fileID: -349578044808076231, guid: 29f05b04d496d484d91a79e3cbbf7916, type: 3}

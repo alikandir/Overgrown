@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5817744506212615777}
   m_Layer: 0
   m_Name: PlantPlurb
-  m_TagString: Untagged
+  m_TagString: plant
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,3 +98,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   growtime: 2
   overgrowntime: 20
+  beforeovergrown: 10
+  meshs:
+  - {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 2333724447409599672, guid: 4e27550e74aa8dd48b7fe6e069736e72, type: 3}

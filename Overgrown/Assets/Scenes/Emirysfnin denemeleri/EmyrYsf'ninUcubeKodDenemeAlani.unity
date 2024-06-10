@@ -858,14 +858,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1753932809}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2dbae8bf17faaf945b1e37ef801ca183, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   growtime: 1
   overgrowntime: 2
-  prduct: {fileID: 0}
 --- !u!136 &1753932811
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1067,14 +1066,19 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2093322401}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 341327100f729e54695f987cd0a53974, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   growtime: 2
   overgrowntime: 3
-  prduct: {fileID: 0}
+  meshs:
+  - {fileID: 0}
+  - {fileID: -2817953884332699795, guid: 9f84389f79818c241ad1df10683d4c03, type: 3}
+  - {fileID: -7514476422869634090, guid: 7ca24bb5ff397a049b1396c92c6095f5, type: 3}
+  - {fileID: 5256824896198716822, guid: a5d652d8a3386dd4391eba444f75a2f0, type: 3}
+  beforeovergrown: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

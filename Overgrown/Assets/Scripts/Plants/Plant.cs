@@ -9,6 +9,7 @@ public abstract class Plant : MonoBehaviour
     protected float growTime;
     protected float overgrownTime;
     protected float plantPrice;
+    protected float beforeOvergrown;
 
     private float initialTime;
     private bool isWatered;
@@ -21,10 +22,17 @@ public abstract class Plant : MonoBehaviour
         return false;
     }
 
+    public bool EarlyOvergrown()
+    {
+        if(isWatered)
+            return Time.time - (initialTime + growTime) >= beforeOvergrown;
+        return false;
+    }
+
     public bool IsOverGrown()
     {
         if (isWatered && !isHarvested)
-            return Time.time - (initialTime + growTime) >= overgrownTime;
+            return Time.time - (initialTime + growTime+beforeOvergrown) >= overgrownTime;
         else
             return false;
     }
@@ -38,6 +46,11 @@ public abstract class Plant : MonoBehaviour
     {
         initialTime = Time.time;
         isWatered = true;
+    }
+
+    public bool IsWatered()
+    {
+        return isWatered;
     }
 
     public void Harvest()
