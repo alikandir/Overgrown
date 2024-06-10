@@ -22,10 +22,7 @@ public class Plurb : Plant
 
     private void Update()
     {
-        if (ReadyToHarvest())
-        {
-            //Debug.Log("�abuk harvet");
-        }
+        
         if (IsOverGrown())
         {
             OverGrownEffect();

@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class ThirdPersonCharacterMovement : MonoBehaviour
 {
-    public CharacterController controller;
-
-    public float speed = 6f;
+   public float speed = 6f;
     public float turnSmoothTime = 0.1f;
     private float turnSmoothVelocity;
+    private Rigidbody rb;
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+        // Make sure the Rigidbody is not affected by physics rotation
+        rb.freezeRotation = true;
+    }
 
     void Update()
     {
@@ -27,9 +33,10 @@ public class ThirdPersonCharacterMovement : MonoBehaviour
             // Calculate the move direction
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             // Move the character
-            controller.Move(moveDir.normalized * speed * Time.deltaTime);
+            rb.MovePosition(rb.position + moveDir.normalized * speed * Time.deltaTime);
         }
     }
+    
 }
 
 

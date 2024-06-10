@@ -23,7 +23,7 @@ public abstract class Plant : MonoBehaviour
 
     public bool IsOverGrown()
     {
-        if (isWatered)
+        if (isWatered && !isHarvested)
             return Time.time - (initialTime + growTime) >= overgrownTime;
         else
             return false;
