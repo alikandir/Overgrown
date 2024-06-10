@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     private bool isHoldingCan = false;
 
     private CapsuleCollider capsuleCollider;
-
+    [SerializeField] RandomTaskGeneration taskMan;
     private void Start() {
         capsuleCollider=GetComponent<CapsuleCollider>();
         
@@ -129,6 +129,14 @@ public class PlayerController : MonoBehaviour
     {
         if (onHand && table.OnTable==null)
         {   
+            if(onHand.GetComponent<Plant>() && taskMan.TaskMatch(onHand.GetComponent<Plant>()))
+            {
+                taskMan.NewTask();
+                Destroy(onHand);
+                onHand=null;
+                taskMan.AddMoney(2);
+                return;
+            }
                 table.AddObject(onHand);
                 
                 DropItem();

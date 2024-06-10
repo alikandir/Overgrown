@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public abstract class Plant : MonoBehaviour
 {
-    protected string plantName;
+    public string plantName;
     protected float growTime;
     protected float overgrownTime;
     protected float plantPrice;
