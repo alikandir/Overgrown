@@ -33,7 +33,7 @@ public class ThirdPersonCharacterMovement : MonoBehaviour
             // Calculate the move direction
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             // Move the character
-            rb.MovePosition(rb.position + moveDir.normalized * speed * Time.deltaTime);
+            rb.MovePosition(rb.position - moveDir.normalized * speed * Time.deltaTime);
         }
     }
     

@@ -8,9 +8,7 @@ public class Pumpkin : Plant
     [SerializeField] float overgrowntime = 4f;
     [SerializeField] float beforeovergrown = 12f;
     [SerializeField] float explosionRange = 3f;
-    [SerializeField] Mesh [] meshs;
-    MeshFilter filter;
-
+    
     public Pumpkin()
     {
         plantName = "Rotten Pumpkin";
@@ -20,7 +18,7 @@ public class Pumpkin : Plant
     }
     private void Start()
     {
-        filter = GetComponent<MeshFilter>();
+         currentStage = Instantiate(growthStages[0], transform.position, transform.rotation, transform);
     }
     public override void OverGrownEffect()
     {
@@ -42,17 +40,20 @@ public class Pumpkin : Plant
         }
         else if (EarlyOvergrown())
         {
-            filter.mesh = meshs[3];
+            Destroy(currentStage);
+            currentStage = Instantiate(growthStages[2], transform.position, transform.rotation, transform);
             Debug.Log("early");
         }
         else if (ReadyToHarvest())
-        {
-            filter.mesh = meshs[2];
+        {   
+            Destroy(currentStage);
+            currentStage = Instantiate(growthStages[1], transform.position, transform.rotation, transform);
             Debug.Log("Harvest");
         }
         else if (IsWatered())
         {
-            filter.mesh = meshs[1];
+            Destroy(currentStage);
+            currentStage = Instantiate(growthStages[0], transform.position, transform.rotation, transform);
         }
     }
 }

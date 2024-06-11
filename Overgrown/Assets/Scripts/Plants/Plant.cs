@@ -14,7 +14,8 @@ public abstract class Plant : MonoBehaviour
     private float initialTime;
     private bool isWatered;
     public bool isHarvested { get; private set; } // Flag to check if the plant is harvested
-
+    public List<GameObject> growthStages;
+    public GameObject currentStage;
     public virtual bool ReadyToHarvest()
     {
         if (isWatered)

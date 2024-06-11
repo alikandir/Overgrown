@@ -165,10 +165,17 @@ public class PlayerController : MonoBehaviour
             }
             if (onHand != null)
             {
-                onHand.transform.SetParent(handTransform);
-                onHand.transform.localPosition = Vector3.zero;
-                onHand.transform.localRotation = Quaternion.identity;
-                onHand.transform.localScale = Vector3.one;
+            Vector3 itemGlobalScale = onHand.transform.lossyScale;
+            
+            // Set the parent to the handTransform
+            onHand.transform.SetParent(handTransform);
+            
+            // Reset the local position
+            onHand.transform.localPosition = Vector3.zero;
+            
+            // Calculate and apply the new local scale to maintain the global scale
+            Vector3 newLocalScale = itemGlobalScale.DivideBy(handTransform.lossyScale);
+            onHand.transform.localScale = newLocalScale;
                 return; // Exit the method once a plant is taken from the table
             }
    
@@ -198,4 +205,12 @@ public class PlayerController : MonoBehaviour
         onHand=null;
     }
             
+}
+// Extension method to divide one Vector3 by another
+public static class Vector3Extensions
+{
+    public static Vector3 DivideBy(this Vector3 a, Vector3 b)
+    {
+        return new Vector3(a.x / b.x, a.y / b.y, a.z / b.z);
+    }
 }
