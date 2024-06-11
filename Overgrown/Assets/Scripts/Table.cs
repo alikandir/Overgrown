@@ -37,7 +37,7 @@ public class TableInventory : MonoBehaviour
    
 
         plant.transform.SetParent(transform);
-        plant.transform.localPosition = new Vector3(4f, 0, 0); // Adjust positions as needed
+        plant.transform.localPosition = new Vector3(-4f, 0, 0); // Adjust positions as needed
         Debug.Log($"{gameObject.name} added {plant.name} to the table.");
         }
         else
