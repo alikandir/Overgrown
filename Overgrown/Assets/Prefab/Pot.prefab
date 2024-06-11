@@ -124,7 +124,7 @@ MonoBehaviour:
     type: 3}
   mushroomPrefab: {fileID: 733828413191004096, guid: 4cc2f01b37cd52546af937618fba9a29,
     type: 3}
-  plurbPrefab: {fileID: 5817744506212615777, guid: a51906ca7aec3d04ea291ef2a5fc3f62,
+  plurbPrefab: {fileID: 4402819220028681667, guid: 6dd320c891019594bbdaea45f78b1186,
     type: 3}
 --- !u!1 &7725121769185492067
 GameObject:

@@ -10,7 +10,7 @@ public class Plurb : Plant
     MeshFilter filter;
     [SerializeField] float beforeovergrown=10;
     [SerializeField] Mesh [] meshs;
-
+    bool [] onlyOnce = {true,true,true,true};
     public Plurb()
     {
         plantName = "P'lurp";
@@ -20,9 +20,8 @@ public class Plurb : Plant
     }
     private void Start()
     {
-
-        filter = gameObject.GetComponent<MeshFilter>();
-        filter.mesh = meshs[0];
+        currentStage = Instantiate(growthStages[0], transform.position, transform.rotation, transform);
+        
     }
     public override void OverGrownEffect()
     {
@@ -31,25 +30,45 @@ public class Plurb : Plant
 
     private void Update()
     {
-        if (IsOverGrown()) 
-        {
-            Debug.Log("bura bozuk");
-            OverGrownEffect();
-            
+        if (IsOverGrown())
+        {   if (onlyOnce[3])
+            {
+                Debug.Log("bura bozuk");
+                OverGrownEffect();
+                onlyOnce[3] = false;
+            }
         }
         else if (EarlyOvergrown())
         {
-            filter.mesh = meshs[3];
-            Debug.Log("early");
+            if (onlyOnce[2])
+            {
+                Destroy(currentStage);
+                currentStage = Instantiate(growthStages[2], transform.position, transform.rotation, transform);
+                
+                onlyOnce[2] = false;
+            }
         }
         else if (ReadyToHarvest())
         {
-            filter.mesh = meshs[2];
-            Debug.Log("Harvest");
+            if (onlyOnce[1])
+            {
+                Destroy(currentStage);
+                currentStage = Instantiate(growthStages[1], transform.position, transform.rotation, transform);
+                
+                onlyOnce[1] = false;
+            }
         }
-        else if(IsWatered())
+        else if (IsWatered())
         {
-            filter.mesh = meshs[1];
+            if (onlyOnce[0])
+            {
+                Destroy(currentStage);
+                currentStage = Instantiate(growthStages[0], transform.position, transform.rotation, transform);
+                onlyOnce[0]=false;
+            }
+            
         }
     }
+    
 }
+

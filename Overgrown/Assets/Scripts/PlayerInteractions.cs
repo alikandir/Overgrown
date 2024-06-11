@@ -52,6 +52,7 @@ public class PlayerController : MonoBehaviour
                 case "WaterSource":
                 WaterSource waterSource=objectInFront.GetComponent<WaterSource>();
                 TryRefillCan(waterSource);
+
                 break;
             } 
         }
@@ -197,6 +198,7 @@ public class PlayerController : MonoBehaviour
             WateringCan can = onHand.GetComponent<WateringCan>();
             if (can != null)
             {
+                Debug.Log("can refilled");
                 can.RefillCan();
                 return; // Exit the method once the watering can is refilled
             }

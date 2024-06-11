@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Pumpkin : Plant
 {
-    [SerializeField] float growtime = 5f;
-    [SerializeField] float overgrowntime = 4f;
-    [SerializeField] float beforeovergrown = 12f;
-    [SerializeField] float explosionRange = 3f;
+    [SerializeField] float growtime = 4f;
+    [SerializeField] float overgrowntime = 3f;
+    [SerializeField] float beforeovergrown = 8f;
+    [SerializeField] float explosionRange = 10f;
     bool [] onlyOnce = {true,true,true,true};
     public Pumpkin()
     {
@@ -22,14 +22,18 @@ public class Pumpkin : Plant
     }
     public override void OverGrownEffect()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRange);
-        for (int i = 0; i < colliders.Length; i++)
+        GameObject[] plants = GameObject.FindGameObjectsWithTag("plant");
+        foreach (GameObject plant in plants)
         {
-            if (colliders[i].gameObject.CompareTag("plant"))
-                Destroy(colliders[i].gameObject);
-        }
+            // Check if the plant is within the explosion range
+            float distance = Vector3.Distance(transform.position, plant.transform.position);
+            if (distance <= explosionRange)
+            {
+                Destroy(plant);
+            }
+        Destroy(gameObject);
     }
-
+    }
     private void Update()
     {
         if (IsOverGrown())
