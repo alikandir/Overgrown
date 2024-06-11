@@ -137,13 +137,13 @@ public class PlayerController : MonoBehaviour
                 taskMan.AddMoney(2);
                 return;
             }
-                table.AddObject(onHand);
+            table.AddObject(onHand);
                 
-                DropItem();
-                if (isHoldingCan){
-                    isHoldingCan=false;
-                }
-                return; // Exit the method once a plant is placed on the table
+            DropItem();
+            if (isHoldingCan){
+                isHoldingCan=false;
+            }
+            return; // Exit the method once a plant is placed on the table
         }
             
         
