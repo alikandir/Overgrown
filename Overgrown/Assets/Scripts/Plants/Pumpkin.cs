@@ -8,7 +8,7 @@ public class Pumpkin : Plant
     [SerializeField] float overgrowntime = 4f;
     [SerializeField] float beforeovergrown = 12f;
     [SerializeField] float explosionRange = 3f;
-    
+    bool [] onlyOnce = {true,true,true,true};
     public Pumpkin()
     {
         plantName = "Rotten Pumpkin";
@@ -33,27 +33,42 @@ public class Pumpkin : Plant
     private void Update()
     {
         if (IsOverGrown())
-        {
-            Debug.Log("bura bozuk");
-            OverGrownEffect();
-
+        {   if (onlyOnce[3])
+            {
+                Debug.Log("bura bozuk");
+                OverGrownEffect();
+                onlyOnce[3] = false;
+            }
         }
         else if (EarlyOvergrown())
         {
-            Destroy(currentStage);
-            currentStage = Instantiate(growthStages[2], transform.position, transform.rotation, transform);
-            Debug.Log("early");
+            if (onlyOnce[2])
+            {
+                Destroy(currentStage);
+                currentStage = Instantiate(growthStages[2], transform.position, transform.rotation, transform);
+                Debug.Log("early");
+                onlyOnce[2] = false;
+            }
         }
         else if (ReadyToHarvest())
-        {   
-            Destroy(currentStage);
-            currentStage = Instantiate(growthStages[1], transform.position, transform.rotation, transform);
-            Debug.Log("Harvest");
+        {
+            if (onlyOnce[1])
+            {
+                Destroy(currentStage);
+                currentStage = Instantiate(growthStages[1], transform.position, transform.rotation, transform);
+                Debug.Log("Harvest");
+                onlyOnce[1] = false;
+            }
         }
         else if (IsWatered())
         {
-            Destroy(currentStage);
-            currentStage = Instantiate(growthStages[0], transform.position, transform.rotation, transform);
+            if (onlyOnce[0])
+            {
+                Destroy(currentStage);
+                currentStage = Instantiate(growthStages[0], transform.position, transform.rotation, transform);
+                onlyOnce[0]=false;
+            }
+            
         }
     }
 }
