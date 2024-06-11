@@ -13,6 +13,7 @@ TagManager:
   - WaterSource
   - Table
   - Pot
+  - Well
   layers:
   - Default
   - TransparentFX

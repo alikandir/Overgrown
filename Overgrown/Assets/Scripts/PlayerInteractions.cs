@@ -37,8 +37,9 @@ public class PlayerController : MonoBehaviour
                 case "Pot":
                 Pot pot=objectInFront.GetComponent<Pot>();
                 if (onHand==null){
-                    Debug.Log("tryinggg");
+                    pot.plantInPot.Harvest();
                     PickUpItem(pot.Harvest());
+                    
                     break;
                 }
                 else if (onHand.tag=="WateringCan"){
@@ -63,6 +64,11 @@ public class PlayerController : MonoBehaviour
             else if (objectInFront.tag=="Pot"){
                 Pot pot=objectInFront.GetComponent<Pot>();
                 TryPlanting(pot);
+            }
+            else if (objectInFront.tag=="Well"){
+                if (onHand.tag == "WateringCan"){return;}
+                Destroy(onHand);
+                
             }
 
 
@@ -129,7 +135,7 @@ public class PlayerController : MonoBehaviour
     {
         if (onHand && table.OnTable==null)
         {   
-            if(onHand.GetComponent<Plant>() && taskMan.TaskMatch(onHand.GetComponent<Plant>()))
+            if(onHand.GetComponent<Plant>() && taskMan.TaskMatch(onHand.GetComponent<Plant>()) && table.deskType==TableInventory.DeskType.SellingDesk)
             {
                 taskMan.NewTask();
                 Destroy(onHand);
@@ -176,6 +182,7 @@ public class PlayerController : MonoBehaviour
             // Calculate and apply the new local scale to maintain the global scale
             Vector3 newLocalScale = itemGlobalScale.DivideBy(handTransform.lossyScale);
             onHand.transform.localScale = newLocalScale;
+            
                 return; // Exit the method once a plant is taken from the table
             }
    
